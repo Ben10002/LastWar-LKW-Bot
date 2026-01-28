@@ -1,0 +1,26 @@
+{
+  "admin": {
+    "password": "scrypt:32768:8:1$CnEUNwt1Ae0AoFRJ$938ff59d3934a69385d254b4713d8425150d9b63433f57ec337d0ae448b20e8beb6b8fbe422b9085813075d633a027995f7947086a8387690c4bd42b73346d12",
+    "role": "admin",
+    "blocked": false,
+    "can_choose_share_mode": true,
+    "forced_share_mode": null,
+    "can_use_zombie_bot": true
+  },
+  "All4One": {
+    "password": "scrypt:32768:8:1$weyBz7E1GotW6Ix2$a8fa02db9f26764e046bb225b259ca8be12533f45c94efd908d5931af7617a3e68105144924b3d756b08456289b9e9966b91a899d38cffc7496fe68beabea6d5",
+    "role": "user",
+    "blocked": false,
+    "can_choose_share_mode": true,
+    "forced_share_mode": null,
+    "can_use_zombie_bot": false
+  },
+  "Server39": {
+    "password": "scrypt:32768:8:1$hoQKMT4cM2itCmGD$8718f360bab427605b872df4c075cf7ee25c73cb4d0a55e899be8b89e6f20d01d5b6d4c7b9c359d33f06676a0259fab5175d3c00bebb5518337596e6d5430aa7",
+    "role": "user",
+    "blocked": false,
+    "can_choose_share_mode": true,
+    "forced_share_mode": null,
+    "can_use_zombie_bot": false
+  }
+}

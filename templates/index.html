@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t('app_title') }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-left h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .header-left .subtitle {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .lang-btn {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .lang-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-logout, .btn-admin {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-logout {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-logout:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+        
+        .btn-admin {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-admin:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #dc3545;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-dot.connected {
+            background: #28a745;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-start {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-pause {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .btn-stop {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+        
+        .stat-box {
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .btn-save {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .alert.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        
+        .alert.show {
+            display: block;
+        }
+        
+        .maintenance-mode {
+            background: #ffc107;
+            color: #000;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .current-user {
+            background: #e9ecef;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        .timer-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid #bee5eb;
+        }
+        
+        .mode-request-btn {
+            background: #6c757d;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .mode-request-btn:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+        }
+        
+        .mode-request-info {
+            background: #fff3cd;
+            color: #856404;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+            border: 1px solid #ffeeba;
+        }
+        
+        @media (max-width: 768px) {
+            .status-grid, .stats-grid, .row {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .header-right {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <h1>🚛 {{ t('app_title') }}</h1>
+                <div class="subtitle">{{ t('app_subtitle') }}</div>
+            </div>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <a href="/set_language/de" class="lang-btn {{ 'active' if lang == 'de' else '' }}">DE</a>
+                    <a href="/set_language/en" class="lang-btn {{ 'active' if lang == 'en' else '' }}">EN</a>
+                </div>
+                {% if user.role == 'admin' %}
+                <a href="/admin" class="btn-admin">{{ t('admin_dashboard') }}</a>
+                {% endif %}
+                <a href="/logout" class="btn-logout">{{ t('logout') }}</a>
+            </div>
+        </div>
+        
+        <div id="maintenanceAlert" class="maintenance-mode" style="display: none;">
+            ⚠️ Maintenance-Mode aktiv - Bot pausiert
+        </div>
+        
+        <div id="alerts"></div>
+        
+        <div class="card">
+            <h2>📊 {{ t('status') }}</h2>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span>{{ t('status') }}: <strong id="statusText">{{ t('loading') }}</strong></span>
+                </div>
+                <div class="status-item">
+                    <div class="status-dot" id="adbDot"></div>
+                    <span id="adbStatus">{{ t('adb_disconnected') }}</span>
+                </div>
+                <div class="status-item">
+                    <span>{{ t('no_action') }}: <strong id="lastAction">-</strong></span>
+                </div>
+                <div class="status-item">
+                    <span id="currentUser" class="current-user">-</span>
+                </div>
+            </div>
+            
+            <div id="timerInfo" class="timer-info" style="display: none;">
+                ⏱️ {{ t('timer_remaining') }}: <span id="timerValue">--:--</span>
+            </div>
+            
+            <div class="control-buttons">
+                <button id="btnStart" class="btn btn-start" onclick="startBot()">▶️ {{ t('btn_start') }}</button>
+                <button id="btnPause" class="btn btn-pause" onclick="pauseBot()" disabled>⏸️ {{ t('btn_pause') }}</button>
+                <button id="btnStop" class="btn btn-stop" onclick="stopBot()" disabled>⏹️ {{ t('btn_stop') }}</button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>📈 {{ t('statistics') }}</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="trucksProcessed">0</div>
+                    <div class="stat-label">{{ t('processed') }}</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="trucksShared">0</div>
+                    <div class="stat-label">{{ t('shared') }}</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="trucksSkipped">0</div>
+                    <div class="stat-label">{{ t('skipped') }}</div>
+                </div>
+            </div>
+            <button class="btn-save" style="margin-top: 20px;" onclick="resetStats()">🔄 {{ t('reset_stats') }}</button>
+        </div>
+        
+        <div class="card">
+            <h2>⚙️ {{ t('settings') }}</h2>
+            <form id="settingsForm">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="useLimit" name="use_limit">
+                            <label for="useLimit">{{ t('use_strength_limit') }}</label>
+                        </div>
+                        <input type="number" id="strengthLimit" name="strength_limit" value="60" min="1" max="999" style="margin-top: 10px;">
+                        <small style="color: #6c757d;">{{ t('max_strength') }}</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="useServerFilter" name="use_server_filter">
+                            <label for="useServerFilter">{{ t('filter_server') }}</label>
+                        </div>
+                        <input type="text" id="serverNumber" name="server_number" value="49" style="margin-top: 10px;">
+                        <small style="color: #6c757d;">{{ t('server_number') }}</small>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group">
+                        <label for="resetInterval">{{ t('reset_interval') }}</label>
+                        <input type="number" id="resetInterval" name="reset_interval" value="15" min="5" max="120">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="shareMode">{{ t('share_mode') }}</label>
+                        <select id="shareMode" name="share_mode">
+                            <option value="world">🌍 {{ t('share_world') }}</option>
+                            <option value="alliance">🤝 {{ t('share_alliance') }}</option>
+                        </select>
+                        <div id="modeRequestContainer" style="display: none;">
+                            <div class="mode-request-info">
+                                ⚠️ Sie können den Modus nicht direkt ändern.
+                            </div>
+                            <button type="button" class="mode-request-btn" onclick="requestModeChange()">
+                                {{ t('request_mode_change') }}
+                            </button>
+                            <div id="modeRequestStatus"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="useTimer" name="use_timer">
+                            <label for="useTimer">{{ t('use_timer') }}</label>
+                        </div>
+                        <input type="number" id="timerDuration" name="timer_duration" value="60" min="1" max="720" style="margin-top: 10px;">
+                        <small style="color: #6c757d;">{{ t('timer_minutes') }}</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <!-- Platzhalter für Symmetrie -->
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-save">💾 {{ t('save_settings') }}</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        let currentStatus = {};
+        let updateInterval;
+        
+        // Status-Update
+        function updateStatus() {
+            fetch('/api/status')
+                .then(response => response.json())
+                .then(data => {
+                    currentStatus = data;
+                    
+                    // Bot-Status
+                    const statusText = document.getElementById('statusText');
+                    const statusDot = document.getElementById('statusDot');
+                    
+                    if (data.running) {
+                        if (data.paused) {
+                            statusText.textContent = '{{ t("paused") }}';
+                            statusDot.style.background = '#ffc107';
+                        } else {
+                            statusText.textContent = '{{ t("running") }}';
+                            statusDot.style.background = '#28a745';
+                        }
+                    } else {
+                        statusText.textContent = '{{ t("stopped") }}';
+                        statusDot.style.background = '#dc3545';
+                    }
+                    
+                    // ADB-Status
+                    const adbDot = document.getElementById('adbDot');
+                    const adbStatus = document.getElementById('adbStatus');
+                    if (data.adb_connected) {
+                        adbDot.classList.add('connected');
+                        adbStatus.textContent = '{{ t("adb_connected") }}';
+                    } else {
+                        adbDot.classList.remove('connected');
+                        adbStatus.textContent = '{{ t("adb_disconnected") }}';
+                    }
+                    
+                    // Letzte Aktion
+                    document.getElementById('lastAction').textContent = data.last_action || '-';
+                    
+                    // Aktueller Benutzer
+                    const userText = data.current_user ? `Benutzer: ${data.current_user}` : 'Kein aktiver Benutzer';
+                    document.getElementById('currentUser').textContent = userText;
+                    
+                    // Statistiken
+                    document.getElementById('trucksProcessed').textContent = data.trucks_processed;
+                    document.getElementById('trucksShared').textContent = data.trucks_shared;
+                    document.getElementById('trucksSkipped').textContent = data.trucks_skipped;
+                    
+                    // Maintenance-Mode
+                    const maintenanceAlert = document.getElementById('maintenanceAlert');
+                    if (data.maintenance_mode) {
+                        maintenanceAlert.style.display = 'block';
+                    } else {
+                        maintenanceAlert.style.display = 'none';
+                    }
+                    
+                    // Timer-Info
+                    const timerInfo = document.getElementById('timerInfo');
+                    const timerValue = document.getElementById('timerValue');
+                    if (data.use_timer && data.timer_remaining) {
+                        timerInfo.style.display = 'block';
+                        timerValue.textContent = data.timer_remaining;
+                    } else {
+                        timerInfo.style.display = 'none';
+                    }
+                    
+                    // Button-Status
+                    updateButtons(data);
+                });
+        }
+        
+        function updateButtons(data) {
+            const btnStart = document.getElementById('btnStart');
+            const btnPause = document.getElementById('btnPause');
+            const btnStop = document.getElementById('btnStop');
+            
+            const isMyBot = data.current_user === '{{ user.username }}' || !data.current_user || '{{ user.role }}' === 'admin';
+            
+            if (data.running) {
+                btnStart.disabled = true;
+                btnPause.disabled = !isMyBot;
+                btnStop.disabled = !isMyBot;
+                
+                if (data.paused) {
+                    btnPause.innerHTML = '▶️ {{ t("btn_pause") }}';
+                } else {
+                    btnPause.innerHTML = '⏸️ {{ t("btn_pause") }}';
+                }
+            } else {
+                btnStart.disabled = data.current_user && data.current_user !== '{{ user.username }}' && '{{ user.role }}' !== 'admin';
+                btnPause.disabled = true;
+                btnStop.disabled = true;
+            }
+        }
+        
+        function showAlert(message, type = 'success') {
+            const alertContainer = document.getElementById('alerts');
+            const alert = document.createElement('div');
+            alert.className = `alert ${type} show`;
+            alert.textContent = message;
+            alertContainer.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 3000);
+        }
+        
+        function startBot() {
+            fetch('/api/start', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        showAlert(data.error, 'error');
+                    } else {
+                        updateStatus();
+                    }
+                });
+        }
+        
+        function pauseBot() {
+            fetch('/api/pause', { method: 'POST' })
+                .then(response => response.json())
+                .then(() => updateStatus());
+        }
+        
+        function stopBot() {
+            fetch('/api/stop', { method: 'POST' })
+                .then(response => response.json())
+                .then(() => updateStatus());
+        }
+        
+        function resetStats() {
+            if (confirm('{{ t("confirm_reset") }}')) {
+                fetch('/api/reset_stats', { method: 'POST' })
+                    .then(response => response.json())
+                    .then(() => {
+                        updateStatus();
+                        showAlert('Statistiken zurückgesetzt', 'success');
+                    });
+            }
+        }
+        
+        function requestModeChange() {
+            const currentMode = document.getElementById('shareMode').value;
+            const newMode = currentMode === 'world' ? 'alliance' : 'world';
+            
+            if (confirm(`Möchten Sie den Modus zu "${newMode}" wechseln?`)) {
+                fetch('/api/request_mode_change', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ requested_mode: newMode })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showAlert('{{ t("mode_change_requested") }}', 'success');
+                        loadSettings();
+                    }
+                });
+            }
+        }
+        
+        // Settings laden
+        function loadSettings() {
+            fetch('/api/settings')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('useLimit').checked = data.use_limit;
+                    document.getElementById('strengthLimit').value = data.strength_limit;
+                    document.getElementById('useServerFilter').checked = data.use_server_filter;
+                    document.getElementById('serverNumber').value = data.server_number;
+                    document.getElementById('resetInterval').value = data.reset_interval;
+                    document.getElementById('shareMode').value = data.share_mode;
+                    document.getElementById('useTimer').checked = data.use_timer;
+                    document.getElementById('timerDuration').value = data.timer_duration;
+                    
+                    // Share-Mode Einschränkungen
+                    const shareMode = document.getElementById('shareMode');
+                    const modeRequestContainer = document.getElementById('modeRequestContainer');
+                    const modeRequestStatus = document.getElementById('modeRequestStatus');
+                    
+                    if (!data.can_choose_share_mode) {
+                        shareMode.disabled = true;
+                        modeRequestContainer.style.display = 'block';
+                        
+                        if (data.forced_share_mode) {
+                            shareMode.value = data.forced_share_mode;
+                        }
+                        
+                        // Status der Anfrage anzeigen
+                        if (data.mode_change_request === 'pending') {
+                            modeRequestStatus.innerHTML = '<div class="mode-request-info">📨 Anfrage ausstehend für: ' + data.requested_mode + '</div>';
+                        } else if (data.mode_change_request === 'approved') {
+                            modeRequestStatus.innerHTML = '<div class="alert success">✅ Anfrage genehmigt</div>';
+                        } else if (data.mode_change_request === 'rejected') {
+                            modeRequestStatus.innerHTML = '<div class="alert error">❌ Anfrage abgelehnt</div>';
+                        }
+                    } else {
+                        shareMode.disabled = false;
+                        modeRequestContainer.style.display = 'none';
+                    }
+                });
+        }
+        
+        // Settings speichern
+        document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                use_limit: document.getElementById('useLimit').checked,
+                strength_limit: document.getElementById('strengthLimit').value,
+                use_server_filter: document.getElementById('useServerFilter').checked,
+                server_number: document.getElementById('serverNumber').value,
+                reset_interval: document.getElementById('resetInterval').value,
+                share_mode: document.getElementById('shareMode').value,
+                use_timer: document.getElementById('useTimer').checked,
+                timer_duration: document.getElementById('timerDuration').value
+            };
+            
+            fetch('/api/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    showAlert(data.error, 'error');
+                } else {
+                    showAlert('{{ t("settings_saved") }}', 'success');
+                }
+            });
+        });
+        
+        // Auto-Update
+        updateStatus();
+        loadSettings();
+        updateInterval = setInterval(updateStatus, 2000);
+        
+        // Cleanup bei Verlassen
+        window.addEventListener('beforeunload', () => {
+            clearInterval(updateInterval);
+        });
+    </script>
+</body>
+</html>

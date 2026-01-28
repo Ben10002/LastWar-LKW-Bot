@@ -1,0 +1,22 @@
+2026-01-28 15:13:54,050 - __main__ - INFO - Starte LKW-Bot Web-Interface v3.2 (Modular)...
+2026-01-28 15:13:55,428 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.178.39:5000
+2026-01-28 15:13:55,428 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-28 15:14:02,839 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:02] "[32mGET / HTTP/1.1[0m" 302 -
+2026-01-28 15:14:02,854 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:02] "GET /login?next=/ HTTP/1.1" 200 -
+2026-01-28 15:14:03,332 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:03] "[32mGET / HTTP/1.1[0m" 302 -
+2026-01-28 15:14:03,337 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:03] "GET /login?next=/ HTTP/1.1" 200 -
+2026-01-28 15:14:03,513 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-01-28 15:14:20,039 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:20] "[32mPOST /login?next=/ HTTP/1.1[0m" 302 -
+2026-01-28 15:14:20,091 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:20] "GET / HTTP/1.1" 200 -
+2026-01-28 15:14:20,131 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:20] "GET /api/status HTTP/1.1" 200 -
+2026-01-28 15:14:20,131 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:20] "GET /api/settings HTTP/1.1" 200 -
+2026-01-28 15:14:22,117 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:22] "GET /api/status HTTP/1.1" 200 -
+2026-01-28 15:14:24,114 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:24] "GET /api/status HTTP/1.1" 200 -
+2026-01-28 15:14:26,111 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:26] "GET /api/status HTTP/1.1" 200 -
+2026-01-28 15:14:28,117 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:28] "GET /api/status HTTP/1.1" 200 -
+2026-01-28 15:14:30,118 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:30] "GET /api/status HTTP/1.1" 200 -
+2026-01-28 15:14:32,111 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:32] "GET /api/status HTTP/1.1" 200 -
+2026-01-28 15:14:32,425 - werkzeug - INFO - 127.0.0.1 - - [28/Jan/2026 15:14:32] "[35m[1mGET /admin HTTP/1.1[0m" 500 -
