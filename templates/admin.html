@@ -12,7 +12,7 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
@@ -26,8 +26,8 @@
         .header {
             background: white;
             border-radius: 15px;
-            padding: 20px 30px;
-            margin-bottom: 20px;
+            padding: 25px 35px;
+            margin-bottom: 25px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
@@ -36,15 +36,18 @@
         
         .header h1 {
             color: #667eea;
-            font-size: 28px;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         
         .btn {
-            padding: 10px 20px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             transition: all 0.3s;
             text-decoration: none;
@@ -76,30 +79,42 @@
             color: white;
         }
         
+        .btn-success:hover {
+            background: #38a169;
+        }
+        
         .btn-secondary {
             background: #718096;
             color: white;
         }
         
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+        
         .card {
             background: white;
             border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
         
         .card h2 {
             color: #2d3748;
-            margin-bottom: 20px;
-            font-size: 22px;
+            margin-bottom: 25px;
+            font-size: 24px;
             border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .ssh-config {
             display: grid;
-            gap: 15px;
+            gap: 20px;
         }
         
         .form-group {
@@ -110,15 +125,16 @@
         .form-group label {
             font-weight: 600;
             color: #4a5568;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 15px;
         }
         
         .form-group input,
         .form-group textarea {
-            padding: 12px;
+            padding: 14px 18px;
             border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 10px;
+            font-size: 15px;
             transition: border-color 0.3s;
         }
         
@@ -130,14 +146,43 @@
         
         .form-group textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 100px;
             font-family: 'Courier New', monospace;
         }
         
         .button-group {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             margin-top: 15px;
+        }
+        
+        .info-box {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .info-value {
+            color: #2d3748;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
         }
         
         .users-table {
@@ -147,7 +192,7 @@
         
         .users-table th,
         .users-table td {
-            padding: 12px;
+            padding: 15px;
             text-align: left;
             border-bottom: 1px solid #e2e8f0;
         }
@@ -155,7 +200,10 @@
         .users-table th {
             background: #f7fafc;
             color: #4a5568;
-            font-weight: 600;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
         }
         
         .users-table tr:hover {
@@ -163,10 +211,11 @@
         }
         
         .status-badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-block;
         }
         
         .status-active {
@@ -179,11 +228,30 @@
             color: #742a2a;
         }
         
+        .role-badge {
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        
+        .role-admin {
+            background: #fbd38d;
+            color: #744210;
+        }
+        
+        .role-user {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+        
         .alert {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 18px 24px;
+            border-radius: 12px;
+            margin-bottom: 25px;
             display: none;
+            font-weight: 600;
         }
         
         .alert-success {
@@ -201,10 +269,10 @@
         .maintenance-toggle {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 20px;
+            gap: 20px;
+            padding: 25px;
             background: #fef5e7;
-            border-radius: 8px;
+            border-radius: 12px;
             border-left: 4px solid #f39c12;
         }
         
@@ -228,7 +296,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #ccc;
+            background-color: #cbd5e0;
             transition: .4s;
             border-radius: 34px;
         }
@@ -252,35 +320,14 @@
         input:checked + .slider:before {
             transform: translateX(26px);
         }
-        
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .info-row:last-child {
-            border-bottom: none;
-        }
-        
-        .info-label {
-            font-weight: 600;
-            color: #4a5568;
-        }
-        
-        .info-value {
-            color: #2d3748;
-            font-family: 'Courier New', monospace;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>🔧 Admin Panel</h1>
-            <div>
-                <a href="/" class="btn btn-secondary" style="margin-right: 10px;">← Zurück zum Bot</a>
+            <div style="display: flex; gap: 12px;">
+                <a href="/" class="btn btn-secondary">← Zurück zum Bot</a>
                 <a href="/logout" class="btn btn-danger">Abmelden</a>
             </div>
         </div>
@@ -289,7 +336,7 @@
 
         <!-- SSH Configuration -->
         <div class="card">
-            <h2>🔐 SSH Konfiguration (LKW-Bot)</h2>
+            <h2>🔐 SSH Konfiguration</h2>
             <div class="ssh-config">
                 <div class="form-group">
                     <label for="ssh_command">SSH Command:</label>
@@ -299,14 +346,14 @@
                     <label for="ssh_password">SSH Password:</label>
                     <input type="password" id="ssh_password" placeholder="SSH Password">
                 </div>
-                <div class="info-row" id="ssh_info" style="display: none;">
-                    <div>
-                        <div class="info-label">Local ADB Port:</div>
-                        <div class="info-label">Zuletzt aktualisiert:</div>
+                <div class="info-box" id="ssh_info" style="display: none;">
+                    <div class="info-row">
+                        <span class="info-label">Local ADB Port:</span>
+                        <span class="info-value" id="local_port">-</span>
                     </div>
-                    <div>
-                        <div class="info-value" id="local_port">-</div>
-                        <div class="info-value" id="last_updated">-</div>
+                    <div class="info-row">
+                        <span class="info-label">Zuletzt aktualisiert:</span>
+                        <span class="info-value" id="last_updated">-</span>
                     </div>
                 </div>
                 <div class="button-group">
@@ -325,8 +372,8 @@
                     <span class="slider"></span>
                 </label>
                 <div>
-                    <strong>Wartungsmodus aktivieren</strong>
-                    <p style="color: #666; font-size: 14px; margin-top: 5px;">Bot pausiert automatisch bei aktiviertem Wartungsmodus</p>
+                    <strong style="font-size: 17px; color: #2d3748;">Wartungsmodus aktivieren</strong>
+                    <p style="color: #718096; font-size: 14px; margin-top: 8px;">Bot pausiert automatisch bei aktiviertem Wartungsmodus</p>
                 </div>
             </div>
         </div>
@@ -346,7 +393,9 @@
                 </thead>
                 <tbody id="users_table_body">
                     <tr>
-                        <td colspan="5" style="text-align: center;">Lade Benutzer...</td>
+                        <td colspan="5" style="text-align: center; padding: 30px; color: #718096;">
+                            Lade Benutzer...
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -363,7 +412,7 @@
                     document.getElementById('ssh_password').value = data.ssh_password || '';
                     
                     if (data.local_adb_port) {
-                        document.getElementById('ssh_info').style.display = 'flex';
+                        document.getElementById('ssh_info').style.display = 'block';
                         document.getElementById('local_port').textContent = data.local_adb_port;
                         document.getElementById('last_updated').textContent = 
                             data.last_updated ? new Date(data.last_updated).toLocaleString('de-DE') : '-';
@@ -449,21 +498,26 @@
                             ? '<span class="status-badge status-blocked">Gesperrt</span>'
                             : '<span class="status-badge status-active">Aktiv</span>';
                         
+                        const roleBadge = user.role === 'admin'
+                            ? '<span class="role-badge role-admin">👑 Admin</span>'
+                            : '<span class="role-badge role-user">👤 User</span>';
+                        
                         const shareMode = user.forced_share_mode 
-                            ? `Erzwungen: ${user.forced_share_mode === 'world' ? 'Weltchat' : 'Allianz'}`
-                            : user.can_choose_share_mode ? 'Frei wählbar' : '-';
+                            ? `Erzwungen: ${user.forced_share_mode === 'world' ? '🌍 Weltchat' : '🤝 Allianz'}`
+                            : (user.can_choose_share_mode ? '✓ Frei wählbar' : '-');
                         
                         tr.innerHTML = `
                             <td><strong>${user.username}</strong></td>
-                            <td>${user.role === 'admin' ? '👑 Admin' : '👤 User'}</td>
+                            <td>${roleBadge}</td>
                             <td>${statusBadge}</td>
-                            <td>${shareMode}</td>
+                            <td style="font-size: 14px;">${shareMode}</td>
                             <td>
-                                <button class="btn btn-${user.blocked ? 'success' : 'danger'}" 
-                                        onclick="toggleBlock('${user.username}')" 
-                                        style="font-size: 12px; padding: 6px 12px;">
-                                    ${user.blocked ? '✓ Entsperren' : '✗ Sperren'}
-                                </button>
+                                ${user.role !== 'admin' ? `
+                                    <button class="btn btn-${user.blocked ? 'success' : 'danger'} btn-small" 
+                                            onclick="toggleBlock('${user.username}')">
+                                        ${user.blocked ? '✓ Entsperren' : '✗ Sperren'}
+                                    </button>
+                                ` : '<span style="color: #cbd5e0;">-</span>'}
                             </td>
                         `;
                         tbody.appendChild(tr);
@@ -474,15 +528,21 @@
 
         // Toggle User Block
         function toggleBlock(username) {
-            fetch(`/api/admin/user/toggle_block/${username}`, {method: 'POST'})
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        showAlert('✅ Benutzerstatus geändert', 'success');
-                        loadUsers();
-                    }
-                })
-                .catch(err => console.error('Fehler:', err));
+            if (confirm(`Benutzer "${username}" wirklich ${document.querySelector(`button[onclick*="${username}"]`).textContent.includes('Sperren') ? 'sperren' : 'entsperren'}?`)) {
+                fetch(`/api/admin/user/toggle_block/${username}`, {method: 'POST'})
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            showAlert('✅ Benutzerstatus geändert', 'success');
+                            loadUsers();
+                        } else {
+                            showAlert('❌ Fehler: ' + (data.error || 'Unbekannt'), 'error');
+                        }
+                    })
+                    .catch(err => {
+                        showAlert('❌ Fehler: ' + err.message, 'error');
+                    });
+            }
         }
 
         // Show Alert
