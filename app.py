@@ -216,18 +216,22 @@ def api_admin_ssh_config():
         data = request.json
         ssh_command = data.get('ssh_command', '').strip()
         ssh_password = data.get('ssh_password', '').strip()
+        local_adb_port = data.get('local_adb_port')
         
         if not ssh_command:
             return jsonify({'error': 'SSH-Command ist erforderlich'}), 400
         
-        parsed = parse_ssh_command(ssh_command)
-        if not parsed:
-            return jsonify({'error': 'Ungültiger SSH-Command'}), 400
+        # Parse nur wenn kein manueller Port angegeben wurde
+        if not local_adb_port:
+            parsed = parse_ssh_command(ssh_command)
+            if not parsed:
+                return jsonify({'error': 'Ungültiger SSH-Command und kein manueller Port'}), 400
+            local_adb_port = parsed.get('local_port')
         
         config = {
             'ssh_command': ssh_command,
             'ssh_password': ssh_password,
-            'local_adb_port': parsed.get('local_port')
+            'local_adb_port': local_adb_port
         }
         
         if save_ssh_config(config, 'ssh_config.json'):
